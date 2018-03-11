@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{B6D6A66A-7A45-4139-931E-7DCD816E92BA}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PioneerController", "PioneerController\PioneerController.vbproj", "{F845F29E-2E6B-45C4-B47E-4F73E2BF5267}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Telnet", "Telnet\Telnet.vbproj", "{823A0BA2-856C-487F-9E35-91B47FD8C593}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6D6A66A-7A45-4139-931E-7DCD816E92BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D6A66A-7A45-4139-931E-7DCD816E92BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D6A66A-7A45-4139-931E-7DCD816E92BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D6A66A-7A45-4139-931E-7DCD816E92BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F845F29E-2E6B-45C4-B47E-4F73E2BF5267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F845F29E-2E6B-45C4-B47E-4F73E2BF5267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F845F29E-2E6B-45C4-B47E-4F73E2BF5267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F845F29E-2E6B-45C4-B47E-4F73E2BF5267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823A0BA2-856C-487F-9E35-91B47FD8C593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823A0BA2-856C-487F-9E35-91B47FD8C593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823A0BA2-856C-487F-9E35-91B47FD8C593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823A0BA2-856C-487F-9E35-91B47FD8C593}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0230FF4-6021-4D6C-BAC9-8724D7518625}
+	EndGlobalSection
+EndGlobal
