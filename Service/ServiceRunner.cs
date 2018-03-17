@@ -11,11 +11,17 @@ namespace Service
 
         static void Main()
         {
+            PioneerStatusMonitor pioneerStatusMonitor = null;
+
             var rc = HostFactory.Run(config =>
             {
                 config.Service<PioneerStatusMonitor>(service =>
                 {
-                    service.ConstructUsing(name => new PioneerStatusMonitor(Config.FromConfig()));
+                    service.ConstructUsing(name =>
+                    {
+                        pioneerStatusMonitor = new PioneerStatusMonitor(Config.FromConfig());
+                        return pioneerStatusMonitor;
+                    });
                     service.WhenStarted(psm => psm.OnStart());
                     service.WhenStopped(psm => psm.OnStop());
                     service.WhenShutdown(psm => psm.OnShutdown());
@@ -30,6 +36,8 @@ namespace Service
 
             var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());
             Environment.ExitCode = exitCode;
+
+            pioneerStatusMonitor?.Dispose();
 
             NLog.LogManager.GetCurrentClassLogger().Log(LogLevel.Info, $"Exitcode={(TopshelfExitCode)exitCode}");
 

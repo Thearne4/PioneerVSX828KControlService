@@ -18,7 +18,7 @@ namespace Service
             _config = config;
             _config.FillBlanksWithDefault();
 
-            _pioneerController = new PioneerAmp(_config.IpAddress, _config.Port, _config.Name);
+            _pioneerController = new PioneerAmp(_config.IpAddress, _config.Port);
 
             _keepAliveTimer = new Timer(_config.KeepAliveTime ?? 1800000) { AutoReset = true };
             _keepAliveTimer.Elapsed += KeepAliveTimerElapsed;
@@ -39,13 +39,14 @@ namespace Service
             do
             {
                 System.Threading.Thread.Sleep(100);
-            } while (!(sendTime.AddMilliseconds((new[] { _keepAliveTimer.Interval, 10000 }).Min()) > DateTime.Now || (_pioneerController.LastReadTime > sendTime && _pioneerController.PowerState != PowerState.Unknown)));
+            } while (!(sendTime.AddMilliseconds(new[] { _keepAliveTimer.Interval, 10000 }.Min()) > DateTime.Now || (_pioneerController.LastReceiveTime.GetValueOrDefault(DateTime.MinValue) > sendTime && _pioneerController.PowerOn != null)));
 
-            if (_pioneerController.PowerState != PowerState.Unknown) _pioneerController.SetPowerState(_pioneerController.PowerState == PowerState.On);
+            if (_pioneerController.PowerOn.HasValue) _pioneerController.SetPowerState(_pioneerController.PowerOn.Value);
         }
 
         public void Dispose()
         {
+            _pioneerController.Dispose();
             _keepAliveTimer?.Dispose();
         }
 
