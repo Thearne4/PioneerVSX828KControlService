@@ -35,13 +35,15 @@ namespace Service
         {
             LogManager.GetCurrentClassLogger().Log(LogLevel.Debug, "KeepAlive Elapsed");
             var sendTime = DateTime.Now;
-            _pioneerController.RequestPowerState();
             do
             {
                 System.Threading.Thread.Sleep(100);
             } while (!(sendTime.AddMilliseconds(new[] { _keepAliveTimer.Interval, 10000 }.Min()) > DateTime.Now || (_pioneerController.LastReceiveTime.GetValueOrDefault(DateTime.MinValue) > sendTime && _pioneerController.PowerOn != null)));
 
-            if (_pioneerController.PowerOn.HasValue) _pioneerController.SetPowerState(_pioneerController.PowerOn.Value);
+            if (_pioneerController.PowerOn.HasValue)
+                _pioneerController.SetPowerState(_pioneerController.PowerOn.Value);
+            else
+                _pioneerController.RequestPowerState();
         }
 
         public void Dispose()

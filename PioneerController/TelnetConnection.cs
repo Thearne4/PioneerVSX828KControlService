@@ -89,7 +89,9 @@ namespace PioneerController
 
             var bufferWithPreAndPost = MessagePrefix.Concat(buffer).Concat(MessageSuffix).ToArray();
 
-            _socket.GetStream().Write(noPrefixAndSuffix ? buffer : bufferWithPreAndPost, 0, buffer.Length);
+            var data = noPrefixAndSuffix ? buffer : bufferWithPreAndPost;
+
+            _socket.GetStream().Write(data, 0, data.Length);
             LastSendTime = DateTime.Now;
         }
 
