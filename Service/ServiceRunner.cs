@@ -15,8 +15,12 @@ namespace Service
 
             var rc = HostFactory.Run(config =>
             {
+                config.EnablePauseAndContinue();
+                config.EnableShutdown();
+
                 config.Service<PioneerStatusMonitor>(service =>
                 {
+
                     service.ConstructUsing(name =>
                     {
                         pioneerStatusMonitor = new PioneerStatusMonitor(Config.FromConfig());
@@ -25,6 +29,8 @@ namespace Service
                     service.WhenStarted(psm => psm.OnStart());
                     service.WhenStopped(psm => psm.OnStop());
                     service.WhenShutdown(psm => psm.OnShutdown());
+                    service.WhenPaused(psm => psm.OnPause());
+                    service.WhenContinued(psm => psm.OnContinue());
                     service.WhenPowerEvent((psm, hc, pea) => psm.OnPowerEvent(hc, pea));
                 });
                 config.RunAsLocalSystem();

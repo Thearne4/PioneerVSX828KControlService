@@ -15,6 +15,9 @@ namespace PioneerController
         private CancellationToken _readTaskCancellationToken = new CancellationToken();
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
+        public string Hostname { get; private set; }
+        public int Port { get; private set; }
+
         public int ReadTimeOutMs { get; set; } = 100;
 
         public byte[] MessagePrefix { get; set; } = { 0xD };
@@ -30,6 +33,8 @@ namespace PioneerController
 
         public TelnetConnection(string hostname, int port, bool startRead = false)
         {
+            Hostname = hostname;
+            Port = port;
             _socket = new TcpClient(hostname, port);
 
             Logger.Info($"Created new Telnet Connection (hostname:{hostname} / port:{port} / Connected:{Connected}");

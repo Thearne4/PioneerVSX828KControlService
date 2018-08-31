@@ -23,6 +23,12 @@ namespace Service
         public bool? TurnOnOnShutdown { get; set; }
         public bool? TurnOffOnShutdown { get; set; }
 
+        public bool TurnOnOnPause { get; set; }
+        public bool TurnOffOnPause { get; set; }
+
+        public bool TurnOnOnContinue { get; set; }
+        public bool TurnOffOnContinue { get; set; }
+
         public bool? KeepAlive { get; set; }
         public double? KeepAliveTime { get; set; }
 

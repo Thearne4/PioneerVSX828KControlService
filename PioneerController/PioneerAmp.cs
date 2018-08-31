@@ -26,7 +26,14 @@ namespace PioneerController
 
         public DateTime? LastSendTime => _connection?.LastSendTime;
         public DateTime? LastReceiveTime => _connection?.LastReceiveTime;
+
         public DateTime? LastConfirmationReceived { get; private set; } = null;
+
+        public DateTime? LastConfirmedSend { get; set; } = null;
+        public DateTime? FirstUnconfirmedSendTime { get; set; } = null;
+
+        public string Hostname => _connection?.Hostname;
+        public int? Port => _connection?.Port;
 
         public bool Connecting { get; private set; }
 
@@ -212,7 +219,12 @@ namespace PioneerController
                 else
                 {
                     Logger.Info("Unhandled command received: " + cmd);
+                    continue;
                 }
+
+                LastConfirmedSend = LastSendTime;
+                if (FirstUnconfirmedSendTime.HasValue) FirstUnconfirmedSendTime = null;
+
             }
         }
 
@@ -223,6 +235,7 @@ namespace PioneerController
             Logger.Debug($"Using SafeSend from {methodName} with value {cmd}");
 
             _connection.Write(cmd);
+            if (!FirstUnconfirmedSendTime.HasValue) FirstUnconfirmedSendTime = DateTime.Now;
         }
 
         [NotifyPropertyChangedInvocator]
